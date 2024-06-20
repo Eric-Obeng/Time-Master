@@ -60,3 +60,40 @@ Clock.prototype.get12HourTime = function () {
 console.log(`(24-hour format): ${currentClock.getFormattedTime()}`);
 console.log(`(12-hour format): ${currentClock.get12HourTime()}`);
 */
+
+const updateClock = () => {
+  const clockDiv = document.getElementById("clock");
+  const format = document.getElementById("format").value;
+  const timeZoneOffset = parseInt(
+    document.getElementById("timezone").value,
+    10
+  );
+  const color = document.getElementById("color").value;
+
+  const now = new Date();
+
+  now.setHours(now.getHours() + timeZoneOffset);
+
+  const currentClock = new Clock(
+    now.getHours(),
+    now.getMinutes(),
+    now.getSeconds()
+  );
+
+  clockDiv.style.color = color;
+
+  if (format === "24") {
+    clockDiv.textContent = currentClock.getFormattedTime();
+  } else {
+    clockDiv.textContent = currentClock.get12HourTime();
+  }
+};
+
+setInterval(updateClock, 1000);
+
+updateClock();
+
+// Adding event listeners to update clock immediately when customization options change
+document.getElementById("format").addEventListener("change", updateClock);
+document.getElementById("timezone").addEventListener("input", updateClock);
+document.getElementById("color").addEventListener("input", updateClock);
