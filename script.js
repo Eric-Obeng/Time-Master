@@ -30,3 +30,33 @@ console.log(`Hours: ${currentClock.hours}`);
 console.log(`Minutes: ${currentClock.minutes}`);
 console.log(`Seconds: ${currentClock.seconds}`);
 */
+
+// FormattedTime Method
+Clock.prototype.getFormattedTime = function () {
+  const formattedHours = this.hours.toString().padStart(2, "0");
+  const formattedMinutes = this.minutes.toString().padStart(2, "0");
+  const formattedSeconds = this.seconds.toString().padStart(2, "0");
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+};
+
+Clock.prototype.get12HourTime = function () {
+  let hours = this.hours;
+  let period = hours >= 12 ? "PM" : "AM";
+
+  if (hours > 12) {
+    hours -= 12;
+  }
+
+  if (hours === 0) hours = 12;
+
+  const formattedHours = hours.toString().padStart(2, "0");
+  const formattedMinutes = this.minutes.toString().padStart(2, "0");
+  const formattedSeconds = this.seconds.toString().padStart(2, "0");
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${period}`;
+};
+
+/*
+console.log(`(24-hour format): ${currentClock.getFormattedTime()}`);
+console.log(`(12-hour format): ${currentClock.get12HourTime()}`);
+*/
