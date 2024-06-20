@@ -23,6 +23,26 @@
       <label for="color">Text Color:</label>
       <input type="color" id="color" value="#000000" />
     </div>
+    <div>
+      <label for="alarmHour">Alarm Hour:</label>
+      <input type="number" id="alarmHour" min="0" max="23" />
+    </div>
+    <div>
+      <label for="alarmMinute">Alarm Minute:</label>
+      <input type="number" id="alarmMinute" min="0" max="59" />
+    </div>
+    <div id="periodSelector" style="display: none">
+      <input type="radio" id="am" name="period" value="AM" />
+      <label for="am">AM</label>
+      <input type="radio" id="pm" name="period" value="PM" />
+      <label for="pm">PM</label>
+    </div>
+    <audio
+      src="./extreme-clock-alarm-9700.mp3"
+      id="alarmSound"
+      preload="auto"
+    ></audio>
+    <button id="setAlarm">Set Alarm</button>
     <script src="./script.js"></script>
   </body>
 </html>
