@@ -1,5 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
 * {
   margin: unset;
   padding: unset;
   box-sizing: border-box;
+}
+
+body {
+  background: url("https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+  background-size: cover;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+.clock {
+  text-align: center;
+  width: 70rem;
+  height: 20rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  position: relative;
+  border-radius: 20px;
+}
+
+.clock .clock__time {
+  font-family: "Russo One", sans-serif;
+  font-size: 12rem;
+}
+
+.clock .am_pm {
+  position: absolute;
+  top: 20px;
+  right: 100px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #f0f8ff;
+}
+
+.clock .clock__customize {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  width: 95%;
+  position: absolute;
+  bottom: 30px;
+  color: #f0f8ff;
+  font-size: 1.3rem;
+}
+
+.container .alarm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 18rem;
+  height: 9rem;
+  border-radius: 25px;
+  font-size: 1.4rem;
+  color: #f0f8ff;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 60px;
+}
+
+.container .alarm .setAlarm {
+  width: 120px;
+  height: 40px;
+  padding: 5px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #0538a6;
+  transition: background-color 2s ease;
+  color: #f0f8ff;
+  margin-top: 5px;
+}
+
+.container .alarm .setAlarm:hover {
+  background-color: #0646d0;
+}
+
+.hidden {
+  display: none;
 }
