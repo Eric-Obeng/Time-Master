@@ -1,45 +1,40 @@
 "use strict";
+
 const AmPm = document.getElementById("am_pm");
 
-function Clock(hours, minutes, seconds) {
-  this.hours = hours;
-  this.minutes = minutes;
-  this.seconds = seconds;
-}
-
-// FormattedTime Method
-Clock.prototype.getFormattedTime = function () {
-  AmPm.style.display = "none";
-  const formattedHours = this.hours.toString().padStart(2, "0");
-  const formattedMinutes = this.minutes.toString().padStart(2, "0");
-  const formattedSeconds = this.seconds.toString().padStart(2, "0");
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-};
-
-Clock.prototype.get12HourTime = function () {
-  let hours = this.hours;
-  let period = hours >= 12 ? "PM" : "AM";
-
-  if (hours > 12) {
-    hours -= 12;
+class Clock {
+  constructor(hours, minutes, seconds) {
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
   }
 
-  AmPm.style.display = "block";
-  AmPm.textContent = period;
+  getFormattedTime() {
+    AmPm.style.display = "none";
+    return `${this.hours.toString().padStart(2, "0")}:${this.minutes
+      .toString()
+      .padStart(2, "0")}:${this.seconds.toString().padStart(2, "0")}`;
+  }
 
-  if (hours === 0) hours = 12;
+  get12HourTime() {
+    let hours = this.hours;
+    const period = hours >= 12 ? "PM" : "AM";
 
-  const formattedHours = hours.toString().padStart(2, "0");
-  const formattedMinutes = this.minutes.toString().padStart(2, "0");
-  const formattedSeconds = this.seconds.toString().padStart(2, "0");
+    if (hours > 12) hours -= 12;
+    if (hours === 0) hours = 12;
 
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-};
+    AmPm.style.display = "block";
+    AmPm.textContent = period;
+
+    return `${hours.toString().padStart(2, "0")}:${this.minutes
+      .toString()
+      .padStart(2, "0")}:${this.seconds.toString().padStart(2, "0")}`;
+  }
+}
 
 let alarmTime = null;
 let is24HourFormat = true;
 
-// Function to set the alarm
 const setAlarm = () => {
   const alarmHour = parseInt(document.getElementById("alarmHour").value, 10);
   const alarmMinute = parseInt(
@@ -47,7 +42,6 @@ const setAlarm = () => {
     10
   );
   const format = document.getElementById("format").value;
-
   let period = null;
 
   if (format === "12") {
@@ -59,20 +53,16 @@ const setAlarm = () => {
     return;
   }
 
-  alarmTime = {
-    hours: alarmHour,
-    minutes: alarmMinute,
-    period: period,
-  };
+  alarmTime = { hours: alarmHour, minutes: alarmMinute, period };
   is24HourFormat = format === "24";
 
-  const displayHour = alarmHour.toString().padStart(2, "0");
-  const displayMinute = alarmMinute.toString().padStart(2, "0");
-  const displayPeriod = period ? ` ${period}` : "";
-  alert(`Alarm set for ${displayHour}:${displayMinute}${displayPeriod}`);
+  alert(
+    `Alarm set for ${alarmHour.toString().padStart(2, "0")}:${alarmMinute
+      .toString()
+      .padStart(2, "0")}${period ? ` ${period}` : ""}`
+  );
 };
 
-// Function to check if the alarm time matches the current time
 const checkAlarm = (currentClock) => {
   if (!alarmTime) return;
 
@@ -92,7 +82,6 @@ const checkAlarm = (currentClock) => {
   }
 };
 
-// Function to update the clock display
 const updateClock = () => {
   const clockDiv = document.getElementById("clock");
   const format = document.getElementById("format").value;
@@ -103,8 +92,6 @@ const updateClock = () => {
   const color = document.getElementById("color").value;
 
   const now = new Date();
-
-  // Adjust time for time zone offset
   const localTime = new Date(now.getTime() + timeZoneOffset * 60 * 60 * 1000);
 
   const currentClock = new Clock(
@@ -115,33 +102,24 @@ const updateClock = () => {
 
   clockDiv.style.color = color;
 
-  // Update the div content with the formatted time
   if (format === "24") {
     clockDiv.textContent = currentClock.getFormattedTime();
   } else {
     clockDiv.textContent = currentClock.get12HourTime();
   }
 
-  // Check if the current time matches the alarm time
   checkAlarm(currentClock);
 };
 
 setInterval(updateClock, 1000);
-
 updateClock();
 
-// Adding event listeners to update clock immediately when customization options change
 document.getElementById("format").addEventListener("change", () => {
-  if (document.getElementById("format").value === "12") {
-    document.getElementById("periodSelector").style.display = "block";
-  } else {
-    document.getElementById("periodSelector").style.display = "none";
-    Am;
-  }
+  document.getElementById("periodSelector").style.display =
+    document.getElementById("format").value === "12" ? "block" : "none";
   updateClock();
 });
+
 document.getElementById("timezone").addEventListener("input", updateClock);
 document.getElementById("color").addEventListener("input", updateClock);
-
-// Adding event listener to set the alarm
 document.getElementById("setAlarm").addEventListener("click", setAlarm);
