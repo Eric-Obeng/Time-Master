@@ -1,6 +1,7 @@
 "use strict";
 
 const AmPm = document.getElementById("am_pm");
+const alarmSound = document.getElementById("alarmSound");
 
 class Clock {
   constructor(hours, minutes, seconds) {
@@ -63,6 +64,13 @@ const setAlarm = () => {
   );
 };
 
+const stopAlarm = () => {
+  if (alarmSound) {
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+  }
+};
+
 const checkAlarm = (currentClock) => {
   if (!alarmTime) return;
 
@@ -76,7 +84,7 @@ const checkAlarm = (currentClock) => {
     currentClock.minutes === alarmTime.minutes &&
     (is24HourFormat || currentPeriod === alarmTime.period)
   ) {
-    document.getElementById("alarmSound").play();
+    alarmSound.play();
     alert("Alarm ringing!");
     alarmTime = null; // Reset alarm after it rings
   }
@@ -119,7 +127,11 @@ document.getElementById("format").addEventListener("change", () => {
     document.getElementById("format").value === "12" ? "block" : "none";
   updateClock();
 });
-
 document.getElementById("timezone").addEventListener("input", updateClock);
 document.getElementById("color").addEventListener("input", updateClock);
 document.getElementById("setAlarm").addEventListener("click", setAlarm);
+
+// Stop the alarm sound on key press, mouse move, or click
+document.addEventListener("keydown", stopAlarm);
+document.addEventListener("mousemove", stopAlarm);
+document.addEventListener("click", stopAlarm);
