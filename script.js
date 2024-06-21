@@ -1,4 +1,5 @@
 "use strict";
+const AmPm = document.getElementById("am_pm");
 
 function Clock(hours, minutes, seconds) {
   this.hours = hours;
@@ -8,6 +9,7 @@ function Clock(hours, minutes, seconds) {
 
 // FormattedTime Method
 Clock.prototype.getFormattedTime = function () {
+  AmPm.style.display = "none";
   const formattedHours = this.hours.toString().padStart(2, "0");
   const formattedMinutes = this.minutes.toString().padStart(2, "0");
   const formattedSeconds = this.seconds.toString().padStart(2, "0");
@@ -22,13 +24,16 @@ Clock.prototype.get12HourTime = function () {
     hours -= 12;
   }
 
+  AmPm.style.display = "block";
+  AmPm.textContent = period;
+
   if (hours === 0) hours = 12;
 
   const formattedHours = hours.toString().padStart(2, "0");
   const formattedMinutes = this.minutes.toString().padStart(2, "0");
   const formattedSeconds = this.seconds.toString().padStart(2, "0");
 
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${period}`;
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
 let alarmTime = null;
@@ -42,6 +47,7 @@ const setAlarm = () => {
     10
   );
   const format = document.getElementById("format").value;
+
   let period = null;
 
   if (format === "12") {
@@ -130,6 +136,7 @@ document.getElementById("format").addEventListener("change", () => {
     document.getElementById("periodSelector").style.display = "block";
   } else {
     document.getElementById("periodSelector").style.display = "none";
+    Am;
   }
   updateClock();
 });
