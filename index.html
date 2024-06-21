@@ -7,42 +7,53 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div id="clock"></div>
-    <div>
-      <label for="format">Format:</label>
-      <select id="format">
-        <option value="24">24-hours</option>
-        <option value="12">12-hours</option>
-      </select>
-    </div>
-    <div>
-      <label for="timezone">Time Zone Offset (hours):</label>
-      <input type="number" id="timezone" value="0" />
-    </div>
-    <div>
-      <label for="color">Text Color:</label>
-      <input type="color" id="color" value="#000000" />
-    </div>
-    <div>
-      <label for="alarmHour">Alarm Hour:</label>
-      <input type="number" id="alarmHour" min="0" max="23" />
-    </div>
-    <div>
-      <label for="alarmMinute">Alarm Minute:</label>
-      <input type="number" id="alarmMinute" min="0" max="59" />
-    </div>
-    <div id="periodSelector" style="display: none">
-      <input type="radio" id="am" name="period" value="AM" />
-      <label for="am">AM</label>
-      <input type="radio" id="pm" name="period" value="PM" />
-      <label for="pm">PM</label>
-    </div>
-    <audio
-      src="./extreme-clock-alarm-9700.mp3"
-      id="alarmSound"
-      preload="auto"
-    ></audio>
-    <button id="setAlarm">Set Alarm</button>
+    <main class="container">
+      <div class="clock">
+        <div id="clock" class="clock__time"></div>
+        <span id="am_pm" class="am_pm"></span>
+        <div class="clock__customize">
+          <div class="clock__format">
+            <label for="format">Format:</label>
+            <select id="format">
+              <option value="24">24-hours</option>
+              <option value="12">12-hours</option>
+            </select>
+          </div>
+          <div class="clock__timezone">
+            <label for="timezone">Time Zone Offset (hours):</label>
+            <input type="number" id="timezone" value="0" />
+          </div>
+          <div class="clock__color">
+            <label for="color">Text Color:</label>
+            <input type="color" id="color" value="#000000" />
+          </div>
+        </div>
+      </div>
+
+      <div class="alarm">
+        <div>
+          <label for="alarmHour">Alarm Hour:</label>
+          <input type="number" id="alarmHour" min="0" max="23" />
+        </div>
+        <div>
+          <label for="alarmMinute">Alarm Minute:</label>
+          <input type="number" id="alarmMinute" min="0" max="59" />
+        </div>
+        <div id="periodSelector" style="display: none">
+          <input type="radio" id="am" name="period" value="AM" />
+          <label for="am">AM</label>
+          <input type="radio" id="pm" name="period" value="PM" />
+          <label for="pm">PM</label>
+        </div>
+        <audio
+          src="./extreme-clock-alarm-9700.mp3"
+          id="alarmSound"
+          preload="auto"
+        ></audio>
+        <button id="setAlarm" class="setAlarm">Set Alarm</button>
+      </div>
+    </main>
+
     <script src="./script.js"></script>
   </body>
 </html>
